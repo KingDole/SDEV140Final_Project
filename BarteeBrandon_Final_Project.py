@@ -92,37 +92,35 @@ def createNewPizza():
 
         global pizza_num
         toppings_cost = 0
-        pizza_num = pizza_num + 1
-        
-        #toppings_list = [pepp_var.get(), saus_var.get(), ham_var.get(), baco_var.get(), chick_var.get(), mush_var.get(), oliv_var.get(), pine_var.get(), onio_var.get(), anch_var.get()]
-        #toppings_text = ["Pepperoni, ", "Sausage, ", "Ham, ", "Bacon, ", "Chicken ", "Mushrooms, ", "Olives, ", "Pineapple, ", "Onion, ", "Anchovie, "]
+        pizza_num = pizza_num + 1        
         toppings_dict = {"Pepperoni, ":pepp_var.get(), "Sausage, ":saus_var.get(), "Ham, ":ham_var.get(), "Bacon, ":baco_var.get(), "Chicken, ":chick_var.get(),
-                         "Mushroom, ":mush_var.get(), "Olives, ":oliv_var.get(), "Pineapple, ":pine_var.get(), "Onion, ":onio_var.get(), "Anchovies, ":anch_var.get()}
-                         
+                         "Mushroom, ":mush_var.get(), "Olives, ":oliv_var.get(), "Pineapple, ":pine_var.get(), "Onion, ":onio_var.get(), "Anchovies, ":anch_var.get()}                         
         selected_toppings = []       
-        
-        #for i in toppings_list:
-            #if i == 1:
-                #selected_toppings.append(toppings_text[i])
-                #toppings_cost += 0.50
+
+        # Build a list of toppings to be used in the description and add toppings cost
         for topping in toppings_dict:
             if toppings_dict[topping] == 1:
                 selected_toppings.append(topping)
                 toppings_cost += 0.50
-                
+
+        # Check for stuffed crust and add 1 to cost if true
         if crusts.get() == "Stuffed":
             toppings_cost += 1
-            
+
+        # Check for extra cheese and 1 to cost if true    
         if cheeses.get() == "Extra":
             toppings_cost += 1
-            
+
+        # Sum the cost of the pizza and create a list of pizza prices for totals on the main screen.    
         pizza_cost = 10 + toppings_cost
         pizza_price = ('%.2f' % (10 + toppings_cost))
         cost_list.append(pizza_cost)
 
+        # Create the description string
         selected_toppings_string = ''.join(map(str, selected_toppings))
         description_string = crusts.get() + " Crust, " + sauces.get() + " Sauce, " + cheeses.get() + " Cheese, " + selected_toppings_string        
-           
+
+        # Create the button that adds your pizza to the main window, reactivates the new pizza button, and hides the create window  
         new_pizza_description = tk.Label(home_window, text = description_string).grid(sticky = "W", row = pizza_num, column = 0, columnspan = 2)
         new_pizza_quantity = tk.Label(home_window, text = "1").grid(row = pizza_num, column = 2)
         new_pizza_cost = tk.Label(home_window, text = "$" + pizza_price).grid(row = pizza_num, column = 3)
